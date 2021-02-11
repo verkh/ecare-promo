@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a4j="http://richfaces.org/a4j">
+<h:head>
+    <title>eCare Sign in</title>
+    <link rel="icon" href="images/eCareIcon.png"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->
+    <!--            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"-->
+    <!--            crossorigin="anonymous"></script>-->
+    <link rel="icon" href="images/eCareIcon.png"/>
+
+    <!-- eCare CSS -->
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <link href="css/banner.css" rel="stylesheet"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/banner.js"></script>
+</h:head>
+
+<h:body style="background-image: url('images/body.jpg'); background-size: cover">
+    <!--<jsp:include page="/views/Navbar.jsp"/>-->
+    <br/>
+    <br/>
+
+    <div class="text-center mb-4">
+        <img class="mb-4 center" src="images/eCareIcon.png" alt="" width="100" height="100"/>
+        <h2 class="main-header" style="text-align: center;">For those who's born to rule</h2>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="container">
+        <h:form id="formPlans" rendered="#{planController.plan == null}">
+            <p:poll interval="2" listener="#{planController.needUpdate}" update="fakePoll"/>
+            <p:poll interval="2" id="fakePoll" update="panelGeral" autoStart="false"/>
+            <h:panelGroup id="panelGeral">
+                <div id="scroller">
+                    <div class="nav">
+                        <a class="prev">&#xab;</a>
+                        <a class="next">&#xbb;</a>
+                    </div>
+                    <ui:repeat value="#{planController.plans}" var="plan">
+                        <div class="item">
+                            <div class="card mb-4 shadow-sm" style="min-height: 295px; max-height: 295px;">
+                                <div class="card-header">
+                                    <h4 class="my-0 fw-normal">${plan.name}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title">$${plan.price} <small
+                                            class="text-muted">/ mo</small></h1>
+                                    <ul class="list-unstyled mt-3 mb-4">
+                                        <li>${plan.options[0].name}</li>
+                                        <li>${plan.options[1].name}</li>
+                                        <li>${plan.options[2].name}</li>
+                                    </ul>
+                                    <h:commandButton type="submit" class="w-100 btn btn-lg btn-primary"
+                                                     value="Show me" action="#{planController.pickPlan(plan)}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:panelGroup>
+        </h:form>
+        <h:form rendered="#{planController.plan != null}">
+            <p:poll interval="1" update="panelPlan"/>
+            <h:panelGroup id="panelPlan">
+                <div class="card mb-4 shadow-sm" style="min-height: 295px;">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="my-0 fw-normal">${planController.plan.name}</h4>
+                            </div>
+                            <div class="col">
+                                <h:commandButton value="Go back" type="submit" class="w-100 btn btn-lg btn-primary"
+                                                 style="max-width: 100px; float: right;"
+                                                 action="#{planController.resetPlan()}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$${planController.plan.price} <small
+                                class="text-muted">/ mo</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <ui:repeat value="#{planController.plan.options}" var="option">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>${option.name}</h4>
+                                    </div>
+                                    <div class="col">
+                                        <p>${option.description}</p>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <h4>${option.price} $</h4>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </ul>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </div>
+</h:body>
+</html>

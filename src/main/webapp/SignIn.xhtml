@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>eCare Sign in</title>
+    <link rel="icon" href="images/eCareIcon.png"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+    <!-- eCare CSS -->
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/signin.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="css/floating-labels.css" rel="stylesheet"/>
+</h:head>
+
+<h:body class="text-center">
+
+<!--<h:include page="/views/Navbar.jsp"/>-->
+
+<br/>
+<br/>
+<main class="form-signin card p-3 bg-dark">
+    <h:form rendered="#{not authController.logged}">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="images/eCareIcon.png" alt="" width="100" height="100"/>
+            <h1 class="h3 mb-3 font-weight-normal">Authentication</h1>
+        </div>
+        <div class="form-label-group">
+            <h:inputText value="#{username}" id="inputLogin" class="form-control" a:placeholder="Email or phone or username" required="true"
+                           requiredMessage="Login can't be blank" label="login"/>
+            <h:message for="inputLogin" style="color:red" />
+        </div>
+        <br/>
+        <div class="form-label-group">
+            <h:inputSecret value="#{password}" id="inputPassword" class="form-control" a:placeholder="Password" required="true"
+                             requiredMessage="Password can't be blank" label="password"/>
+            <h:message for="inputPassword" style="color:red" />
+        </div>
+
+<!--        <h:outputLabel class="text-danger text-sm-center" role="alert" value="#authController.error}"/>-->
+
+<!--        <input type="hidden"-->
+<!--               name="${_csrf.parameterName}"-->
+<!--               value="${_csrf.token}"/>-->
+        <h:commandButton value="Sign in" class="btn btn-lg btn-primary btn-block"/>
+        <p class="mt-5 mb-3 text-muted text-center">(c) 2020 - Until death do us part</p>
+    </h:form>
+</main>
+
+</h:body>
+</html>
