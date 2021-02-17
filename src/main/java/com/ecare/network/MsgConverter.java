@@ -1,6 +1,8 @@
 package com.ecare.network;
 
 import com.ecare.network.DataChangeNotification;
+import org.apache.activemq.command.ActiveMQObjectMessage;
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 
@@ -8,6 +10,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.io.IOException;
 
 public class MsgConverter implements MessageConverter {
 

@@ -1,8 +1,11 @@
 package com.ecare.plans;
 
+import com.ecare.network.Listener;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
@@ -19,6 +22,8 @@ import java.util.List;
 @Startup
 @Singleton
 public class DataStorage {
+
+    private static Logger logger = LogManager.getLogger(DataStorage.class);
 
     @Getter @Setter
     private Long pickedId = null;
@@ -37,18 +42,18 @@ public class DataStorage {
 
     @PostConstruct
     void init() {
-        System.out.println("Init storage");
+        logger.info("Initializing data storage...");
         loadPlans();
     }
 
     public void loadPlans() {
-        System.out.println("Load plans storage");
+        logger.trace("Loading plans from server...");
         plans = planService.getAll();
         updateTimestamp();
     }
 
     private void updateTimestamp() {
         lastUpdate = System.currentTimeMillis();
-        System.out.println("Updated TS " + lastUpdate);
+        logger.trace("Time of update: " + lastUpdate);
     }
 }
