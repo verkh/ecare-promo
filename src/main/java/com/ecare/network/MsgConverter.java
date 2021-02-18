@@ -12,8 +12,19 @@ import javax.jms.Message;
 import javax.jms.Session;
 import java.io.IOException;
 
+/**
+ * Converter is responsible for serializing and deserializing messages
+ */
 public class MsgConverter implements MessageConverter {
 
+    /**
+     * Converts to network message
+     * @param object target message
+     * @param session current session
+     * @return network message
+     * @throws JMSException
+     * @throws MessageConversionException
+     */
     public Message toMessage(Object object, Session session) throws JMSException, MessageConversionException {
         DataChangeNotification notification = (DataChangeNotification) object;
         MapMessage message = session.createMapMessage();
@@ -22,6 +33,13 @@ public class MsgConverter implements MessageConverter {
         return message;
     }
 
+    /**
+     * Deserializing message from network message
+     * @param message source message
+     * @return parsed object
+     * @throws JMSException
+     * @throws MessageConversionException
+     */
     public Object fromMessage(Message message) throws JMSException, MessageConversionException {
         MapMessage mapMessage = (MapMessage) message;
         return new DataChangeNotification(mapMessage.getString("key"), mapMessage.getString("sender"));

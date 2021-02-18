@@ -8,12 +8,19 @@ import javax.ejb.Stateless;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class handles loading of plans from server
+ */
 @Stateless
 public class PlanService {
 
     private RestTemplate restTemplate = new RestTemplate();
     private PlanDeserializer planDeserializer = new PlanDeserializer();
 
+    /**
+     * Loads all plans
+     * @return list of all loaded plans
+     */
     public List<Plan> getAll() {
         final String url = "http://192.168.31.107:8090/ecare/api/plans";
         ResponseEntity<Plan[]> response = restTemplate.getForEntity(url, Plan[].class);

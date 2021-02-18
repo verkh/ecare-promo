@@ -16,11 +16,13 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 
+/**
+ * Processes incomming messages
+ */
 @MessageDriven(name = "EcareMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "activemq/queue/ecareClients"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
-
 public class Listener implements MessageListener {
 
     private static Logger logger = LogManager.getLogger(Listener.class);
@@ -33,6 +35,10 @@ public class Listener implements MessageListener {
     @Inject
     private DataStorage storage;
 
+    /**
+     * Handles received messages
+     * @param message network message
+     */
     @Override
     public void onMessage(Message message) {
         try {

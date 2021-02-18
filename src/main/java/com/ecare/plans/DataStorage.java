@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Storage of viewed data
+ */
 @Startup
 @Singleton
 public class DataStorage {
@@ -40,18 +43,27 @@ public class DataStorage {
     @Getter @Setter
     private List<Plan> plans = null;
 
+    /**
+     * Initializes storage and loads all plans
+     */
     @PostConstruct
     void init() {
         logger.info("Initializing data storage...");
         loadPlans();
     }
 
+    /**
+     * Load all plans
+     */
     public void loadPlans() {
         logger.trace("Loading plans from server...");
         plans = planService.getAll();
         updateTimestamp();
     }
 
+    /**
+     * Updates timestamp of latest load of plans
+     */
     private void updateTimestamp() {
         lastUpdate = System.currentTimeMillis();
         logger.trace("Time of update: " + lastUpdate);

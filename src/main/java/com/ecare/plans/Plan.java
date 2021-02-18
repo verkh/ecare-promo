@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Represents plan from server
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,6 +15,9 @@ import java.util.List;
 @Builder(toBuilder=true)
 @JsonDeserialize(using = PlanDeserializer.class)
 public class Plan {
+    /**
+     * Represents plan option
+     */
     @Getter
     @Setter
     @NoArgsConstructor
