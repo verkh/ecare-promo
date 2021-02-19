@@ -1,5 +1,6 @@
 package com.ecare.plans;
 
+import com.ecare.config.Configurations;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +36,9 @@ public class PlanController {
 
     @Inject
     private FacesContext facesContext;
+
+    @EJB @Getter
+    private Configurations configurations;
 
     /**
      * @return Return all loaded plans as a list from storage
