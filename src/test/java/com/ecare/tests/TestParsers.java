@@ -15,17 +15,12 @@ import com.mockrunner.mock.jms.MockSession;
 import com.mockrunner.mock.jms.MockQueueConnection;
 import com.mockrunner.jms.DestinationManager;
 import com.mockrunner.jms.ConfigurationManager;
-import org.mockito.Mock;
-import org.springframework.web.client.RestTemplate;
 
 import javax.jms.Message;
 import javax.jms.Session;
 import java.io.StringReader;
 
 public class TestParsers {
-
-    @Mock
-    private RestTemplate restTemplate;
 
     @Test
     public void testParseNotification() throws Exception {
